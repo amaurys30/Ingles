@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Together Party — Presidential Campaign</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-dark: #0A1628;
+    --blue-mid: #0D2147;
+    --blue-accent: #1A3A7A;
+    --blue-glow: #1E54B7;
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-pale: #F5E6A3;
+    --white: #FFFFFF;
+    --white-soft: #F0F4FF;
+    --red: #C0392B;
+    --red-accent: #E74C3C;
+    --glass: rgba(255,255,255,0.08);
+    --glass-border: rgba(255,255,255,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #000;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    cursor: default;
+  }
+
+  /* ============================
+     PRESENTATION CONTAINER
+  ============================ */
+  .presentation {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1), transform 0.9s cubic-bezier(0.4,0,0.2,1);
+    transform: translateY(30px);
+    overflow: hidden;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .slide.exit {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  /* ============================
+     COLOMBIA FLAG SVG COMPONENT
+  ============================ */
+  .colombia-flag-bg {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .colombia-flag-small {
+    width: 36px;
+    height: 24px;
+    border-radius: 3px;
+    overflow: hidden;
+    display: inline-flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+  .col-stripe { width: 100%; }
+  .col-yellow { flex: 2; background: #FCD116; }
+  .col-blue   { flex: 1; background: #003087; }
+  .col-red    { flex: 1; background: #CE1126; }
+
+  /* ============================
+     SLIDE 1 — COVER
+  ============================ */
+  #slide1 {
+    background: linear-gradient(135deg, #040D1E 0%, #0A1A3A 40%, #0D2147 70%, #071228 100%);
+  }
+
+  #slide1 .stars-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 15% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(2px 2px at 60% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 40%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 85%, rgba(255,255,255,0.4) 0%, transparent 100%);
+  }
+
+  #slide1 .flag-watermark {
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-15deg);
+    width: 700px;
+    height: 460px;
+    opacity: 0.04;
+    display: flex;
+    flex-direction: column;
+  }
+  #slide1 .flag-watermark .fw-y { flex: 2; background: #FCD116; }
+  #slide1 .flag-watermark .fw-b { flex: 1; background: #003087; }
+  #slide1 .flag-watermark .fw-r { flex: 1; background: #CE1126; }
+
+  #slide1 .glow-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  #slide1 .gc1 { width: 500px; height: 500px; background: rgba(26,90,180,0.25); top: -100px; left: -100px; }
+  #slide1 .gc2 { width: 400px; height: 400px; background: rgba(201,168,76,0.12); bottom: -80px; right: 200px; }
+
+  #slide1 .gold-line-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold-light) 50%, var(--gold) 70%, transparent 100%);
+  }
+  #slide1 .gold-line-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold-light) 50%, var(--gold) 70%, transparent 100%);
+  }
+
+  #slide1 .content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 0;
+  }
+
+  #slide1 .party-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 30px;
+    padding: 7px 22px;
+    margin-bottom: 22px;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  #slide1 .party-badge span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+  }
+
+  #slide1 h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(36px, 5.5vw, 68px);
+    color: var(--white);
+    letter-spacing: 4px;
+    text-align: center;
+    line-height: 1.1;
+    text-transform: uppercase;
+    text-shadow: 0 0 40px rgba(26,84,183,0.6);
+    animation: fadeUp 0.8s ease 0.4s both;
+    max-width: 900px;
+  }
+  #slide1 h1 span { color: var(--gold-light); }
+
+  #slide1 .divider {
+    width: 280px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+    margin: 20px 0;
+    animation: fadeUp 0.8s ease 0.55s both;
+  }
+
+  #slide1 .slogan {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(14px, 1.8vw, 20px);
+    color: rgba(255,255,255,0.75);
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.8s ease 0.65s both;
+  }
+
+  #slide1 .candidates-row {
+    display: flex;
+    gap: clamp(40px, 6vw, 100px);
+    align-items: center;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease 0.8s both;
+  }
+
+  .candidate-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .photo-circle {
+    width: clamp(90px, 10vw, 130px);
+    height: clamp(90px, 10vw, 130px);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-glow));
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 25px rgba(201,168,76,0.4), 0 0 60px rgba(26,84,183,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .photo-circle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.team-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+  .photo-icon {
+    color: rgba(255,255,255,0.35);
+    font-size: clamp(32px, 3.5vw, 48px);
+  }
+
+  .candidate-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: var(--white);
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .candidate-role {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(10px, 1vw, 13px);
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: -8px;
+  }
+
+  .vs-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .vs-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+  .vs-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  #slide1 .vote-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(12px, 1.3vw, 15px);
+    color: var(--gold-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: fadeUp 0.8s ease 1s both;
+  }
+
+  /* ============================
+     SLIDE 2 — OUR PLANS
+  ============================ */
+  #slide2 {
+    background: linear-gradient(160deg, #F8FAFF 0%, #EEF3FF 40%, #E8EDF8 100%);
+  }
+
+  #slide2 .accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 8px;
+    background: linear-gradient(to bottom, var(--blue-glow), var(--blue-dark), var(--gold));
+  }
+
+  #slide2 .top-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--blue-dark) 0%, var(--blue-glow) 50%, var(--gold) 100%);
+  }
+
+  #slide2 .flag-corner {
+    position: absolute;
+    top: 18px;
+    right: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.9;
+  }
+  #slide2 .flag-corner span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    color: var(--blue-dark);
+    letter-spacing: 2px;
+    font-weight: 500;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  #slide2 .col-strip {
+    position: absolute;
+    bottom: 0;
+    left: 8px; right: 0;
+    height: 3px;
+    display: flex;
+  }
+  #slide2 .col-strip div:nth-child(1) { flex: 2; background: #FCD116; }
+  #slide2 .col-strip div:nth-child(2) { flex: 1; background: #003087; }
+  #slide2 .col-strip div:nth-child(3) { flex: 1; background: #CE1126; }
+
+  #slide2 .content {
+    position: absolute;
+    inset: 0;
+    padding: 50px 60px 50px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #slide2 .slide-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--blue-glow);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 8px;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  #slide2 h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(32px, 4.5vw, 56px);
+    color: var(--blue-dark);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+
+  #slide2 .h2-under {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin-bottom: 36px;
+    animation: fadeUp 0.7s ease 0.3s both;
+  }
+
+  .plans-grid {
+    display: flex;
+    gap: 24px;
+    flex: 1;
+    align-items: center;
+  }
+
+  .plan-card {
+    flex: 1;
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    max-height: 280px;
+  }
+  .plan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(26,84,183,0.3);
+  }
+  .plan-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .plan-card:nth-child(1) { animation: fadeUp 0.7s ease 0.4s both; }
+  .plan-card:nth-child(2) { animation: fadeUp 0.7s ease 0.55s both; }
+  .plan-card:nth-child(3) { animation: fadeUp 0.7s ease 0.7s both; }
+
+  .plan-card:nth-child(1)::before { background: linear-gradient(90deg, var(--blue-glow), var(--blue-accent)); }
+  .plan-card:nth-child(2)::before { background: linear-gradient(90deg, #2ECC71, #1ABC9C); }
+  .plan-card:nth-child(3)::before { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+
+  .plan-card .plan-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 20px;
+  }
+  .plan-card:nth-child(1) .plan-glow { background: radial-gradient(circle at 50% 0%, rgba(26,84,183,0.15) 0%, transparent 70%); }
+  .plan-card:nth-child(2) .plan-glow { background: radial-gradient(circle at 50% 0%, rgba(46,204,113,0.12) 0%, transparent 70%); }
+  .plan-card:nth-child(3) .plan-glow { background: radial-gradient(circle at 50% 0%, rgba(201,168,76,0.15) 0%, transparent 70%); }
+
+  .plan-icon {
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1;
+  }
+
+  .plan-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(16px, 1.8vw, 22px);
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+
+  .plan-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .plan-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(12px, 1.2vw, 14px);
+    color: rgba(255,255,255,0.75);
+    font-weight: 400;
+  }
+  .plan-item::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .plan-card:nth-child(1) .plan-item::before { background: var(--blue-glow); }
+  .plan-card:nth-child(2) .plan-item::before { background: #2ECC71; }
+  .plan-card:nth-child(3) .plan-item::before { background: var(--gold); }
+
+  /* ============================
+     SLIDE 3 — OUR FUTURE
+  ============================ */
+  #slide3 {
+    background: linear-gradient(170deg, #040E22 0%, #071628 50%, #091E38 100%);
+  }
+
+  #slide3 .city-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(4,14,34,0.9) 0%, rgba(4,14,34,0.5) 50%, rgba(4,14,34,0.85) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600'%3E%3Crect width='1200' height='600' fill='%23050F23'/%3E%3C!-- Buildings --%3E%3Crect x='0' y='340' width='80' height='260' fill='%230A1830'/%3E%3Crect x='90' y='300' width='60' height='300' fill='%230D1E3A'/%3E%3Crect x='160' y='350' width='100' height='250' fill='%230A1830'/%3E%3Crect x='270' y='250' width='70' height='350' fill='%23102040'/%3E%3Crect x='350' y='310' width='90' height='290' fill='%230D1E3A'/%3E%3Crect x='450' y='200' width='50' height='400' fill='%23142548'/%3E%3Crect x='510' y='280' width='80' height='320' fill='%230A1830'/%3E%3Crect x='600' y='220' width='100' height='380' fill='%23102040'/%3E%3Crect x='710' y='290' width='60' height='310' fill='%230D1E3A'/%3E%3Crect x='780' y='260' width='90' height='340' fill='%23142548'/%3E%3Crect x='880' y='320' width='70' height='280' fill='%230A1830'/%3E%3Crect x='960' y='280' width='110' height='320' fill='%230D1E3A'/%3E%3Crect x='1080' y='340' width='80' height='260' fill='%230A1830'/%3E%3Crect x='1170' y='300' width='30' height='300' fill='%23102040'/%3E%3C!-- Windows --%3E%3Crect x='10' y='360' width='8' height='6' fill='%231E54B7' opacity='0.7'/%3E%3Crect x='22' y='360' width='8' height='6' fill='%231E54B7' opacity='0.5'/%3E%3Crect x='34' y='360' width='8' height='6' fill='%231E54B7' opacity='0.8'/%3E%3Crect x='10' y='376' width='8' height='6' fill='%231E54B7' opacity='0.4'/%3E%3Crect x='22' y='376' width='8' height='6' fill='%231E54B7' opacity='0.9'/%3E%3Crect x='100' y='320' width='8' height='6' fill='%231E54B7' opacity='0.6'/%3E%3Crect x='114' y='320' width='8' height='6' fill='%231E54B7' opacity='0.8'/%3E%3Crect x='100' y='336' width='8' height='6' fill='%231E54B7' opacity='0.5'/%3E%3Crect x='280' y='270' width='8' height='6' fill='%23C9A84C' opacity='0.6'/%3E%3Crect x='294' y='270' width='8' height='6' fill='%231E54B7' opacity='0.7'/%3E%3Crect x='308' y='270' width='8' height='6' fill='%231E54B7' opacity='0.5'/%3E%3Crect x='460' y='220' width='6' height='5' fill='%231E54B7' opacity='0.8'/%3E%3Crect x='460' y='234' width='6' height='5' fill='%231E54B7' opacity='0.6'/%3E%3Crect x='460' y='248' width='6' height='5' fill='%23C9A84C' opacity='0.5'/%3E%3Crect x='612' y='240' width='10' height='7' fill='%231E54B7' opacity='0.7'/%3E%3Crect x='628' y='240' width='10' height='7' fill='%231E54B7' opacity='0.5'/%3E%3Crect x='644' y='240' width='10' height='7' fill='%231E54B7' opacity='0.8'/%3E%3Crect x='612' y='256' width='10' height='7' fill='%231E54B7' opacity='0.4'/%3E%3Crect x='628' y='256' width='10' height='7' fill='%23C9A84C' opacity='0.6'/%3E%3Crect x='792' y='278' width='8' height='6' fill='%231E54B7' opacity='0.6'/%3E%3Crect x='806' y='278' width='8' height='6' fill='%231E54B7' opacity='0.8'/%3E%3Crect x='820' y='278' width='8' height='6' fill='%231E54B7' opacity='0.5'/%3E%3Crect x='972' y='300' width='10' height='7' fill='%231E54B7' opacity='0.7'/%3E%3Crect x='988' y='300' width='10' height='7' fill='%231E54B7' opacity='0.9'/%3E%3Crect x='1004' y='300' width='10' height='7' fill='%231E54B7' opacity='0.5'/%3E%3Crect x='972' y='316' width='10' height='7' fill='%23C9A84C' opacity='0.6'/%3E%3C!-- Ground glow --%3E%3Cellipse cx='600' cy='580' rx='700' ry='80' fill='%231E54B7' opacity='0.08'/%3E%3C/svg%3E");
+    background-size: cover;
+    background-position: center bottom;
+  }
+
+  #slide3 .glow-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--blue-glow) 20%, var(--gold) 50%, var(--blue-glow) 80%, transparent 100%);
+    box-shadow: 0 0 20px var(--blue-glow), 0 0 40px rgba(201,168,76,0.3);
+    bottom: 38%;
+  }
+
+  #slide3 .content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 60px;
+  }
+
+  #slide3 .header-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  #slide3 .slide-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  #slide3 h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(34px, 5vw, 62px);
+    color: var(--white);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 0 40px rgba(26,84,183,0.8);
+    animation: fadeUp 0.7s ease 0.25s both;
+  }
+
+  #slide3 .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .feature-box {
+    background: rgba(10, 22, 40, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 26px 30px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-box::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--gold), var(--blue-glow));
+    border-radius: 3px 0 0 3px;
+  }
+  .feature-box:hover {
+    border-color: rgba(201,168,76,0.35);
+    box-shadow: 0 8px 30px rgba(26,84,183,0.25);
+    transform: translateX(4px);
+  }
+
+  .feature-box:nth-child(1) { animation: fadeUp 0.7s ease 0.4s both; }
+  .feature-box:nth-child(2) { animation: fadeUp 0.7s ease 0.5s both; }
+  .feature-box:nth-child(3) { animation: fadeUp 0.7s ease 0.6s both; }
+  .feature-box:nth-child(4) { animation: fadeUp 0.7s ease 0.7s both; }
+
+  .feature-check {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 15px rgba(201,168,76,0.4);
+  }
+  .feature-check svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--blue-dark);
+    stroke-width: 3;
+    fill: none;
+  }
+
+  .feature-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 1.4vw, 17px);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ============================
+     SLIDE 4 — CLOSING
+  ============================ */
+  #slide4 {
+    background: linear-gradient(135deg, #030C1C 0%, #071525 50%, #04101E 100%);
+  }
+
+  #slide4 .flag-large {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0.05;
+  }
+  #slide4 .flag-large .fl-y { flex: 2; background: #FCD116; }
+  #slide4 .flag-large .fl-b { flex: 1; background: #003087; }
+  #slide4 .flag-large .fl-r { flex: 1; background: #CE1126; }
+
+  #slide4 .radial-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,84,183,0.2) 0%, rgba(201,168,76,0.08) 40%, transparent 70%);
+    pointer-events: none;
+  }
+
+  #slide4 .ring1 {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    pointer-events: none;
+  }
+  #slide4 .ring2 {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.07);
+    pointer-events: none;
+  }
+
+  #slide4 .content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  }
+
+  #slide4 .top-line {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom: 28px;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  #slide4 .vote-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(40px, 7vw, 90px);
+    color: var(--white);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-shadow: 0 0 60px rgba(26,84,183,0.7), 0 0 30px rgba(201,168,76,0.3);
+    animation: fadeUp 0.8s ease 0.2s both;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  #slide4 .vote-text .gold { color: var(--gold-light); }
+
+  #slide4 .for-future {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(28px, 4.5vw, 58px);
+    color: var(--gold-light);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 40px rgba(201,168,76,0.5);
+    animation: fadeUp 0.8s ease 0.3s both;
+    margin-bottom: 20px;
+  }
+
+  #slide4 .party-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 1.4vw, 16px);
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 4px;
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+  #slide4 .slogan-italic {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(12px, 1.2vw, 14px);
+    color: rgba(255,255,255,0.45);
+    font-style: italic;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.7s ease 0.48s both;
+  }
+
+  #slide4 .gold-divider {
+    width: 300px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+    margin-bottom: 32px;
+    animation: fadeUp 0.7s ease 0.55s both;
+  }
+
+  #slide4 .photo-pair {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    animation: fadeUp 0.7s ease 0.65s both;
+  }
+
+  #slide4 .photo-pair-inner {
+    position: relative;
+    width: clamp(160px, 18vw, 220px);
+    height: clamp(90px, 10vw, 120px);
+    background: linear-gradient(135deg, var(--blue-accent), var(--blue-glow));
+    border: 2px solid var(--gold);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(201,168,76,0.25), 0 0 60px rgba(26,84,183,0.2);
+  }
+
+  #slide4 .photo-pair-inner .placeholder-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    letter-spacing: 1px;
+    padding: 10px;
+  }
+
+  #slide4 .bottom-line {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-top: 28px;
+    animation: fadeUp 0.7s ease 0.8s both;
+  }
+
+  /* ============================
+     SLIDE 5 — THANK YOU
+  ============================ */
+  #slide5 {
+    background: linear-gradient(160deg, #040D1E 0%, #071525 60%, #040D1E 100%);
+  }
+
+  #slide5 .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatParticle linear infinite;
+  }
+
+  #slide5 .flag-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    display: flex;
+    height: 6px;
+  }
+  #slide5 .flag-bottom div:nth-child(1) { flex: 2; background: #FCD116; }
+  #slide5 .flag-bottom div:nth-child(2) { flex: 1; background: #003087; }
+  #slide5 .flag-bottom div:nth-child(3) { flex: 1; background: #CE1126; }
+
+  #slide5 .content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  }
+
+  #slide5 .ornament {
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    animation: fadeUp 0.7s ease 0.1s both;
+    position: relative;
+  }
+  #slide5 .ornament::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+  #slide5 .ornament-star {
+    color: var(--gold-light);
+    font-size: 22px;
+  }
+
+  #slide5 h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(52px, 9vw, 110px);
+    color: var(--white);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-shadow: 0 0 60px rgba(26,84,183,0.6);
+    animation: fadeUp 0.8s ease 0.2s both;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  #slide5 .gold-line {
+    width: 220px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+    margin: 16px 0;
+    animation: fadeUp 0.7s ease 0.35s both;
+  }
+
+  #slide5 .party-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(13px, 1.5vw, 18px);
+    color: var(--gold-light);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    animation: fadeUp 0.7s ease 0.45s both;
+    margin-bottom: 24px;
+  }
+
+  #slide5 .names-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.7s ease 0.55s both;
+  }
+  #slide5 .name-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  #slide5 .name-person {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(14px, 1.6vw, 18px);
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+  #slide5 .name-role {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  #slide5 .name-sep {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  #slide5 .colombia-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeUp 0.7s ease 0.65s both;
+  }
+  #slide5 .colombia-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(13px, 1.4vw, 16px);
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ============================
+     NAVIGATION
+  ============================ */
+  .nav {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 1000;
+    background: rgba(10, 22, 40, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 10px 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  .nav-btn {
+    background: none;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    font-size: 16px;
+  }
+  .nav-btn:hover {
+    background: rgba(201,168,76,0.15);
+    border-color: var(--gold);
+    box-shadow: 0 0 12px rgba(201,168,76,0.3);
+  }
+
+  .nav-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+  }
+  .nav-dot.active {
+    background: var(--gold);
+    width: 24px;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(201,168,76,0.5);
+  }
+
+  .slide-counter {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  /* ============================
+     ANIMATIONS
+  ============================ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes floatParticle {
+    0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.15; }
+  }
+
+  /* ============================
+     FULLSCREEN HINT
+  ============================ */
+  .fullscreen-hint {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: rgba(10,22,40,0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .fullscreen-hint:hover { background: rgba(10,22,40,0.9); border-color: var(--gold); }
+  .fullscreen-hint span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 1px;
+  }
+  .fullscreen-hint svg { stroke: var(--gold); width: 14px; height: 14px; }
+
+  /* Keyboard hint */
+  .key-hint {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    background: rgba(10,22,40,0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 8px 14px;
+    z-index: 1000;
+    opacity: 0.7;
+  }
+  .key-hint span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide active" id="slide1">
+    <div class="stars-bg"></div>
+    <div class="flag-watermark">
+      <div class="fw-y"></div>
+      <div class="fw-b"></div>
+      <div class="fw-r"></div>
+    </div>
+    <div class="glow-circle gc1"></div>
+    <div class="glow-circle gc2"></div>
+    <div class="gold-line-top"></div>
+    <div class="gold-line-bottom"></div>
+
+    <div class="content">
+      <div class="party-badge">
+        <div class="colombia-flag-small"><div class="col-stripe col-yellow"></div><div class="col-stripe col-blue"></div><div class="col-stripe col-red"></div></div>
+        <span>Official Presidential Campaign</span>
+        <div class="colombia-flag-small"><div class="col-stripe col-yellow"></div><div class="col-stripe col-blue"></div><div class="col-stripe col-red"></div></div>
+      </div>
+
+      <h1>Future <span>Together</span><br>Party</h1>
+
+      <div class="divider"></div>
+
+      <p class="slogan">"Building a Better Tomorrow"</p>
+
+      <div class="candidates-row">
+        <div class="candidate-card">
+          <div class="photo-circle">
+            <img src="amaurys.jpg" alt="Amaurys" class="profile-img">
+          </div>
+          <div class="candidate-name">Amaurys</div>
+          <div class="candidate-role">President</div>
+        </div>
+
+
+        <div class="vs-divider">
+          <div class="vs-line"></div>
+          <div class="vs-text">&amp;</div>
+          <div class="vs-line"></div>
+        </div>
+
+        <div class="candidate-card">
+          <div class="photo-circle">
+            <img src="jhonatan.jpg" alt="Jhonatan" class="profile-img">
+          </div>
+          <div class="candidate-name">Jhonatan</div>
+          <div class="candidate-role">Vice President</div>
+        </div>
+      </div>
+
+      <div class="vote-cta">
+        <div class="colombia-flag-small"><div class="col-stripe col-yellow"></div><div class="col-stripe col-blue"></div><div class="col-stripe col-red"></div></div>
+        <span>🗳️ Vote for Change</span>
+        <div class="colombia-flag-small"><div class="col-stripe col-yellow"></div><div class="col-stripe col-blue"></div><div class="col-stripe col-red"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: OUR PLANS -->
+  <div class="slide" id="slide2">
+    <div class="accent-bar"></div>
+    <div class="top-stripe"></div>
+    <div class="flag-corner">
+      <span>Colombia 🇨🇴</span>
+      <div class="colombia-flag-small"><div class="col-stripe col-yellow"></div><div class="col-stripe col-blue"></div><div class="col-stripe col-red"></div></div>
+    </div>
+    <div class="col-strip"><div></div><div></div><div></div></div>
+
+    <div class="content">
+      <div class="slide-label">02 — Platform</div>
+      <h2>Our Plans</h2>
+      <div class="h2-under"></div>
+
+      <div class="plans-grid">
+        <div class="plan-card">
+          <div class="plan-glow"></div>
+          <div class="plan-icon">📚</div>
+          <div class="plan-title">Education</div>
+          <div class="plan-items">
+            <div class="plan-item">Better schools for all</div>
+            <div class="plan-item">Free internet access</div>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-glow"></div>
+          <div class="plan-icon">🌱</div>
+          <div class="plan-title">Environment</div>
+          <div class="plan-items">
+            <div class="plan-item">More trees planted</div>
+            <div class="plan-item">Cleaner, greener cities</div>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-glow"></div>
+          <div class="plan-icon">💼</div>
+          <div class="plan-title">Economy</div>
+          <div class="plan-items">
+            <div class="plan-item">More jobs created</div>
+            <div class="plan-item">Support for businesses</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: OUR FUTURE -->
+  <div class="slide" id="slide3">
+    <div class="city-bg"></div>
+    <div class="glow-line"></div>
+
+    <div class="content">
+      <div class="header-area">
+        <div class="slide-label">03 — Vision</div>
+        <h2>Our Future</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="feature-text">Better Opportunities for Everyone</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="feature-text">Cleaner, Modern Cities</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="feature-text">Strong & Growing Economy</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="feature-text">A United, Strong Country</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: CLOSING -->
+  <div class="slide" id="slide4">
+    <div class="flag-large">
+      <div class="fl-y"></div>
+      <div class="fl-b"></div>
+      <div class="fl-r"></div>
+    </div>
+    <div class="radial-glow"></div>
+    <div class="ring1"></div>
+    <div class="ring2"></div>
+
+    <div class="content">
+      <div class="top-line"></div>
+
+      <div class="vote-text">VOTE FOR THE</div>
+      <div class="for-future">FUTURE!</div>
+
+      <div class="party-name">Future Together Party</div>
+      <div class="slogan-italic">"Building a Better Tomorrow"</div>
+
+      <div class="gold-divider"></div>
+
+      <div class="photo-pair">
+        <div class="photo-pair-inner">
+          <div class="placeholder-text">📸 Insert<br>Photo Here</div>
+        </div>
+      </div>
+
+      <div class="bottom-line"></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: THANK YOU -->
+  <div class="slide" id="slide5">
+    <div class="particles" id="particles"></div>
+    <div class="flag-bottom"><div></div><div></div><div></div></div>
+
+    <div class="content">
+      <div class="ornament">
+        <span class="ornament-star">★</span>
+      </div>
+
+      <h2>Thank You!</h2>
+
+      <div class="gold-line"></div>
+
+      <div class="party-title">Future Together Party</div>
+
+      <div class="names-row">
+        <div class="name-box">
+          <div class="name-person">Amaurys</div>
+          <div class="name-role">President</div>
+        </div>
+        <div class="name-sep"></div>
+        <div class="name-box">
+          <div class="name-person">[Partner Name]</div>
+          <div class="name-role">Vice President</div>
+        </div>
+      </div>
+
+      <div class="colombia-row">
+        <div class="colombia-flag-small"><div class="col-stripe col-yellow"></div><div class="col-stripe col-blue"></div><div class="col-stripe col-red"></div></div>
+        <span class="colombia-text">Colombia</span>
+        <div class="colombia-flag-small"><div class="col-stripe col-yellow"></div><div class="col-stripe col-blue"></div><div class="col-stripe col-red"></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">‹</button>
+  <div class="nav-dots">
+    <button class="nav-dot active" onclick="goToSlide(0)"></button>
+    <button class="nav-dot" onclick="goToSlide(1)"></button>
+    <button class="nav-dot" onclick="goToSlide(2)"></button>
+    <button class="nav-dot" onclick="goToSlide(3)"></button>
+    <button class="nav-dot" onclick="goToSlide(4)"></button>
+  </div>
+  <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">›</button>
+  <span class="slide-counter" id="counter">1 / 5</span>
+</div>
+
+<div class="fullscreen-hint" onclick="toggleFullscreen()" title="Toggle fullscreen">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 3 21 3 21 9"></polyline>
+    <polyline points="9 21 3 21 3 15"></polyline>
+    <line x1="21" y1="3" x2="14" y2="10"></line>
+    <line x1="3" y1="21" x2="10" y2="14"></line>
+  </svg>
+  <span>Fullscreen</span>
+</div>
+
+<div class="key-hint">
+  <span>← → Arrow Keys or Click to Navigate</span>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.nav-dot');
+  const counter = document.getElementById('counter');
+  let isAnimating = false;
+
+  function goToSlide(n) {
+    if (isAnimating || n === current) return;
+    isAnimating = true;
+
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+
+    setTimeout(() => {
+      slides[current].classList.remove('exit');
+      current = n;
+      slides[current].classList.add('active');
+      updateUI();
+
+      // Re-trigger animations
+      const animated = slides[current].querySelectorAll('[style*="animation"], [class]');
+      slides[current].style.opacity = '0';
+      requestAnimationFrame(() => {
+        slides[current].style.opacity = '';
+        setTimeout(() => { isAnimating = false; }, 600);
+      });
+    }, 500);
+  }
+
+  function changeSlide(dir) {
+    const next = Math.max(0, Math.min(4, current + dir));
+    goToSlide(next);
+  }
+
+  function updateUI() {
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / 5`;
+    document.getElementById('prevBtn').style.opacity = current === 0 ? '0.3' : '1';
+    document.getElementById('nextBtn').style.opacity = current === 4 ? '0.3' : '1';
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      changeSlide(1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      changeSlide(-1);
+    }
+  });
+
+  // Touch/swipe
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
+  });
+
+  // Fullscreen
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  // Generate particles for slide 5
+  function createParticles() {
+    const container = document.getElementById('particles');
+    const colors = ['#C9A84C', '#1E54B7', '#FFFFFF', '#E8C96A'];
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 4 + 1;
+      p.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${Math.random() * 100}%;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        opacity: ${Math.random() * 0.6 + 0.2};
+        animation-duration: ${Math.random() * 12 + 8}s;
+        animation-delay: ${Math.random() * -15}s;
+      `;
+      container.appendChild(p);
+    }
+  }
+  createParticles();
+
+  updateUI();
+</script>
+</body>
+</html>
